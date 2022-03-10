@@ -10,38 +10,25 @@
    
   </head> 
   <body> 
-    <div id="top_panel">
- 
-    <span id="menu_panel">
-      <span id="menu_label">Search Menu</span>
-      <ul class="menu">
-          <li><a href="./index.php">Images</a></li>
-          <li><a href="./users.php">Users</a></li>
-          <li><a href="./posts.php">Weekly Posts</a></li>
-      </ul>
-    </span>
-    
+    <div id="top_panel">  
         <div id="right_panel">
         <div id="sub_selection_panel">
             <label for="subs">Choose a sub:</label><br />
             <select name="subs" id="subs">
-              <option value="DrawMeNSFW"  selected="selected">DrawMeNSFW</option>
               <option value="RedditGetsDrawn">RedditGetsDrawn</option>
-              <!--option value="DrawMe">DrawMe</option>
-              <option value="EditMyPicNSFW">EditMyPicNSFW</option-->
             </select>
         </div>
         <div id="date_selection_panel">
              <div id="top_panel_date">
                 <label for="days">Start from :</label><br />
                 <select name="days" id="days">
-                  <option value="1" selected="selected">1</option>
+                  <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
                   <option value="6">6</option>
-                  <option value="7">7</option>
+                  <option value="7" selected="selected">7</option>
                 </select>
                 <label for="days"> days ago</label>
             </div>
@@ -56,17 +43,8 @@
         
     </div>
     <!--hr /-->
-    <div id="selected_gallery_controls">show faves (0)</div>
-    <div id="selected_gallery_panel">
-           <span id="selected_gallery_list"></span>
-           <span id="selected_gallery_text_panel">
-                <span id="selected_gallery_info">selected : 0</span>
-                <textarea id="selected_gallery_text_area" name="selected_gallery_text_area" contenteditable="true"></textarea>
-           </span>
-    </div>
     <div id="back_to_top">Back to top</div>
 	<div id="content"> </div> 
   </body> 
- 
    
   </html>
