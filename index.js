@@ -6,7 +6,7 @@ $(document).ready(function() {
   var _oldAfterVar = "";
 
   var _runningInterface = false;
-  var _resultsLength = 100; /*amount of results to get from json*/
+  var _resultsLength = 1000; /*amount of results to get from json*/
 
   var _tryIncrements = 50;
   var _maxTries = 50;
