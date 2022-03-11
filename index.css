@@ -104,138 +104,6 @@ body {
     text-align: left;
   }
   
-  
-  #menu_panel {
-    text-align: center;
-    float: left;
-    width: 150px;
-    height: 90px;
-    padding: 0px;
-    margin: 0px;
-    background-color: #bdf2e2;
-  }
-  
-  #menu_label {
-    padding: 0px;
-    margin: 0px;
-  }
-  
-  #menu_panel ul {
-    list-style-type: none;
-    text-align: left;
-  }
-  
-  #menu_panel ul li:hover {
-    background-color: #99c7b9;
-  }
-  
-  #menu_panel ul a {
-    text-decoration: none;
-  }
-  
-  
-  
-  #date_selection_panel,
-  #user_label {
-    width: 300px;
-    height: 70px;
-    padding: 10px;
-    /* background-color: yellow;    */
-    text-align: center;
-    float: left;
-  
-    border-right: 1px solid #8391a8;
-  }
-  
-  #search_dates {
-    width: 100%;
-    /*text-align:right;   */
-  }
-  
-  
-  #search_button_panel_verified_users {
-    width: 550px;
-    height: 200px;
-    padding: 40px 0 0 0;
-    /*background-color: blue; */
-    text-align: center;
-    float: left;
-  }
-  
-  #selected_gallery_controls,
-  #results_count {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-  
-    border: 2px solid grey;
-    border-radius: 5px;
-  
-    margin: 5px 0 0 0;
-    padding: 5px;
-    z-index: 10;
-  
-    background-color: #7c8f8c;
-    width: 100px;
-  }
-  
-  #selected_gallery_panel {
-    height: 500px;
-    width: 1000px;
-    background-color: #7c8f8c;
-    margin: 0;
-    display: none;
-  
-    position: fixed;
-    bottom: 30px;
-    right: 125px;
-  
-    border: 2px solid #7c8f8c;
-    border-radius: 5px;
-  
-  }
-  
-  #selected_gallery_list {
-    float: left;
-    height: 490px;
-    width: 400px;
-    overflow: auto;
-    background-color: #000000;
-    margin: 0;
-    padding: 0;
-  
-    border: 2px solid #7c8f8c;
-    border-radius: 5px;
-  
-  }
-  
-  #selected_gallery_text_panel {
-    width: 600px;
-    height: 768px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  #selected_gallery_info {
-    width: 590px;
-    height: 10%;
-    margin: 0;
-    padding: 5px;
-  }
-  
-  #selected_gallery_text_area {
-    width: 590px;
-    height: 90%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    position: relative;
-  }
-  
-  #selected_gallery_controls {
-    float: right;
-  }
-  
   #content {
     float: left;
     height: 768px;
@@ -249,34 +117,33 @@ body {
   .comment_results {
     float: left;
   
-    height: 390px;
-    width: 350px;
+    height: 500px;
+    width: 450px;
   
     padding: 0;
     margin: 10px;
   
-    border: 2px solid grey;
-    border-radius: 5px;
+    border: 2px solid black;
   }
   
   .comment_image {
     width: 100%;
-    height: 300px;
+    height: 100%;
   
     padding: 0;
     margin: 0;
   
   
     text-align: center;
-  
     overflow: hidden;
+  
   }
   
-  .commentusername{
+  .commentusername {
     font-family: Verdana, Geneva, sans-serif;
   }
   
-  .commentinfo{
+  .commentinfo {
     font-family: Verdana, Geneva, sans-serif;
   }
   
