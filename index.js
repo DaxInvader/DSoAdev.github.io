@@ -6,7 +6,7 @@ $(document).ready(function() {
   var _oldAfterVar = "";
 
   var _runningInterface = false;
-  var _resultsLength = 1000; /*amount of results to get from json*/
+  var _resultsLength = 2000; /*amount of results to get from json*/
 
   var _tryIncrements = 50;
   var _maxTries = 50;
@@ -23,6 +23,7 @@ $(document).ready(function() {
   $("#utc_time").html(_currentDate.toLocaleString());
   var selectedNumberOfDays = document.getElementById("days");
   _currentDate.setDate(_currentDate.getDate() - parseInt(selectedNumberOfDays.value));
+  _currentDate.setHours(0,0,0,0);
   $("#start_utc_time").html(_currentDate.toLocaleString());
 
 
@@ -30,6 +31,7 @@ $(document).ready(function() {
     var selectedDay = $("#days").children("option:selected").val();
     _currentDate = new Date();
     _currentDate.setDate(_currentDate.getDate() - selectedDay);
+    _currentDate.setHours(0,0,0,0);
     _minimumUTC = getUTCTime(_currentDate);
     $("#start_utc_time").html(_currentDate.toLocaleString());
   });
