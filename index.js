@@ -146,7 +146,7 @@ $(document).ready(function() {
                     var dt = eval(createdUTC * 1000);
                     var createdTranslatedDate = new Date(dt);
 
-                    $("#content").append("<div class='comment_results' id='comment_results_" + _resultsCount + "'><div class='commentinfo'><a href='https://www.reddit.com/user/" + author + "' target='_blank' class='commentusername'><span class='commentusername'>u/" + author + "</span></a> | <a href='https://www.reddit.com" + commentLink + "'  target='_blank' class='commentusername'>comment link</a> | <a href='" + url + "' target='_blank' class='commentusername'>image link</a> | <span class='remove_loading' id='remove_loading_" + _resultsCount + "'>remove loading</span></div><div class='comment_image'><div class='loading_panel' id='loading_panel_" + _resultsCount + "'></div><img src='" + url + "' alt='" + url + "' id='comment_image_" + _resultsCount + "' width='0' height='0'><a class='commentusername'>[" + createdTranslatedDate.toLocaleString() + "]</a></div></div></div>");
+                    $("#content").append("<div class='comment_results' id='comment_results_" + _resultsCount + "'><div class='commentinfo'>[" + createdTranslatedDate.toLocaleString() + "]<br/><a href='https://www.reddit.com/user/" + author + "' target='_blank' class='commentusername'><span class='commentusername'>u/" + author + "</span></a> | <a href='https://www.reddit.com" + commentLink + "'  target='_blank' class='commentusername'>comment link</a> | <a href='" + url + "' target='_blank' class='commentusername'>image link</a><span class='remove_loading' id='remove_loading_" + _resultsCount + "'>remove loading</span></div><div class='comment_image'><div class='loading_panel' id='loading_panel_" + _resultsCount + "'></div><img src='" + url + "' alt='" + url + "' id='comment_image_" + _resultsCount + "' width='0' height='0'><a class='commentusername'></a></div></div></div>");
 
                     if (isStringValidImageUrl(url) == false) {
                       if (url.toUpperCase().indexOf("REDDIT.COM") >= 0) {
@@ -165,12 +165,12 @@ $(document).ready(function() {
                         getTwitterEmbed(url, 'comment_results_' + _resultsCount);
                       } else if (url.toUpperCase().indexOf("VIDBLE") >= 0) {
                         getVidbleImage(url, 'comment_results_' + _resultsCount);
-                      } else  {
+                      } else {
                         $("#remove_loading_" + _resultsCount).remove();
                         getInstagramIFrame(url, 'comment_results_' + _resultsCount);
                       }
                     } else {
-                      var img = $("#comment_image_" + _resultsCount); 
+                      var img = $("#comment_image_" + _resultsCount);
 
                       getImageDimensions(img, _maxImageWidth, _maxImageHeight);
                     }
