@@ -52,7 +52,7 @@ body {
     font-size: 16px;
     transition-duration: 0.4s;
     cursor: pointer;
-    float: right;
+    float: center;
     border: 2px solid #000000;
   }
   
@@ -87,9 +87,15 @@ body {
   
   select {
     padding: 5px 20px;
-    border: none;
-    border-radius: 10px;
+    border-color: #000000;
     background-color: #f1f1f1;
+  }
+  
+  /* Rounded border */
+  hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+    border-color: black;
   }
   
   .container {
@@ -194,7 +200,7 @@ body {
     height: 490px;
     width: 400px;
     overflow: auto;
-    background-color: #c4cccb;
+    background-color: #000000;
     margin: 0;
     padding: 0;
   
@@ -253,8 +259,6 @@ body {
     border-radius: 5px;
   }
   
-  .comment_info {}
-  
   .comment_image {
     width: 100%;
     height: 300px;
@@ -262,32 +266,18 @@ body {
     padding: 0;
     margin: 0;
   
-    /*background-color: red;*/
   
     text-align: center;
   
     overflow: hidden;
   }
   
-  
-  .add_item_to_gallery {
-    background-color: #72d6a4;
+  .commentusername{
+    font-family: Verdana, Geneva, sans-serif;
   }
   
-  .remove_item_from_gallery,
-  .comment_remove_item_from_gallery {
-    background-color: #e06969;
-  }
-  
-  .add_item_to_gallery:hover,
-  .remove_item_from_gallery:hover,
-  .comment_remove_item_from_gallery:hover,
-  #back_to_top:hover,
-  #selected_gallery_controls:hover,
-  #search_button:hover,
-  #results_count:hover,
-  .remove_loading:hover {
-    cursor: pointer;
+  .commentinfo{
+    font-family: Verdana, Geneva, sans-serif;
   }
   
   .remove_loading {
@@ -299,7 +289,7 @@ body {
     z-index: 5;
     /*width: 300px; */
     height: 300px;
-    background-image: url("loading.gif");
+    background-image: url("https://giphy.com/gifs/cod3rcursos-loading-barra-carregando-FaAxdPWZ7HKGmlnku7");
     background-repeat: no-repeat;
     /*background-size: cover; */
     background-position: center center;

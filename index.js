@@ -22,65 +22,26 @@ $(document).ready(function() {
 
   $("#utc_time").html(_currentDate.toLocaleString());
   var selectedNumberOfDays = document.getElementById("days");
-  _currentDate.setDate(_currentDate.getDate()-parseInt(selectedNumberOfDays.value));
+  _currentDate.setDate(_currentDate.getDate() - parseInt(selectedNumberOfDays.value));
   $("#start_utc_time").html(_currentDate.toLocaleString());
 
 
   $("#days").change(function() {
     var selectedDay = $("#days").children("option:selected").val();
-
     _currentDate = new Date();
     _currentDate.setDate(_currentDate.getDate() - selectedDay);
-
-    //var currentStr =_currentDate.toLocaleString();
-
-    _minimumUTC = getUTCTime(_currentDate); //Math.round((currentDate).getTime() / 1000);
-
-    //currentStr += ' ;  ' + _minimumUTC;
+    _minimumUTC = getUTCTime(_currentDate);
     $("#start_utc_time").html(_currentDate.toLocaleString());
-
   });
-
-  $(document).on('change', '#page', function() {
-    var selectedPage = $("#page").children("option:selected").val();
-
-    //alert("selected page = " + selectedPage);
-    window.location.href = selectedPage;
-
-
-  });
-
-
-
-  $("#selected_gallery_controls").click(function() {
-
-    if ($('#selected_gallery_panel').is(':visible')) {
-      $(this).text("show faves");
-      $("#selected_gallery_panel").hide();
-    } else {
-      $(this).text("hide faves");
-      $("#selected_gallery_panel").show();
-    }
-  });
-
 
   $("#search_button").click(function() {
     var selectedSub = $("#subs").children("option:selected").val();
-    //alert("You have selected the sub - " + selectedSub);
-
     $("#content").empty();
-
     _currentTry = 0;
-
     _resultsCount = 0;
     _validResultsCount = 0;
-
     _afterVar = "";
     _runningInterface = false;
-
-    $("#selected_gallery_list").empty();
-    buildSelectedGalleryText();
-
     getImages(selectedSub);
   });
 
@@ -91,174 +52,24 @@ $(document).ready(function() {
     return false;
   });
 
-
-  $('body').on('click', '.add_item_to_gallery', function() {
-    //selected_gallery_list
-
-    var userName = $(this).parent().find(".comment_user_name").text().toLowerCase();
-    var afterID = "";
-
-    //var insertIndex=0;
-
-    $(".remove_item_from_gallery").each(function(index) {
-
-      var thisUserName = $(this).parent().find(".comment_user_name").text().toLowerCase();
-      var thisID = $(this).parent().attr("id");
-
-      //console.log( index + ": " + thisUserName + " ? " + userName + " = " + userName.localeCompare(thisUserName) + " ; ID = " + thisID); 
-
-      if (userName.localeCompare(thisUserName) < 0) //> -1)
-      {
-        //insertIndex = index; // breaks
-        afterID = thisID;
-        return false;
-      }
-
-    });
-    //alert(userName + " insert after " + afterID);
-
-    //****************************************************************************//
-
-    var clone = $(this).parent().clone();
-
-    $(this).attr("id", $(this).attr("id").replaceAll("add_item_to_gallery", "comment_remove_item_from_gallery"));
-    $(this).attr("class", "comment_remove_item_from_gallery");
-    $(this).html("Remove from favourites");
-
-    //var img = $(this).parent().find("img");//.attr("src");
-    //alert(img);
-    //getImageDimensions(img,300,300);
-
-    clone.html(clone.html().replaceAll("comment_results_", "gallery_results_"));
-    clone.html(clone.html().replaceAll("add_item_to_gallery", "remove_item_from_gallery"));
-
-    clone.find(".remove_item_from_gallery").html("Remove from favourites");
-
-    if (afterID == "") {
-      $("#selected_gallery_list").append(clone);
-    } else {
-      clone.insertBefore($("#" + afterID));
-      //$("#selected_gallery_list>div:nth-child(" + insertIndex + ")").append(clone.html());
-    }
-
-    //$("#selected_gallery_list").append(clone);
-
-
-    //alert("You have selected the item - " + $(this).attr("id"));
-    buildSelectedGalleryText();
-  });
-
-
-  $('body').on('click', '.remove_loading', function() {
-    //selected_gallery_list
-    var loadingPanelID = $(this).attr("id").replaceAll("remove_loading_", "loading_panel_");
-
-    $("#" + loadingPanelID).remove();
-    $(this).remove();
-
-  });
-
-
-  $('body').on('click', '.remove_item_from_gallery', function() {
-    //selected_gallery_list
-    var commentDivID = $(this).attr("id").replace("remove_item_from_gallery", "comment_remove_item_from_gallery");
-    //alert(commentDivID);
-
-    var newID = $('#' + commentDivID).attr("id").replace("comment_remove_item_from_gallery", "add_item_to_gallery");
-
-    $('#' + commentDivID).attr("class", "add_item_to_gallery");
-    $('#' + commentDivID).html("Add to favourites");
-    $('#' + commentDivID).attr("id", newID);
-
-    $(this).parent().remove();
-    buildSelectedGalleryText();
-  });
-
-  $('body').on('click', '.comment_remove_item_from_gallery', function() {
-    //selected_gallery_list
-    var galleryDivID = $(this).attr("id").replace("comment_remove_item_from_gallery", "remove_item_from_gallery");
-    //alert(galleryDivID);
-
-    $('#' + galleryDivID).parent().remove();
-
-    var newID = $(this).attr("id").replace("comment_remove_item_from_gallery", "add_item_to_gallery");
-    //alert(newID);
-
-    $(this).attr("class", "add_item_to_gallery");
-    $(this).html("Add to favourites");
-    $(this).attr("id", newID);
-
-    buildSelectedGalleryText();
-
-
-  });
-
-
-
-  function buildSelectedGalleryText() {
-    $("#selected_gallery_text_area").val("");
-
-    var totalElements = $("#selected_gallery_list").children('.comment_results').length;
-    var content = "";
-
-    $("#selected_gallery_list").children('.comment_results').each(function(index) {
-      //alert($(this).find(".comment_info .user_link .comment_user_name").html());
-      var userName = $(this).find(".comment_info .user_link .comment_user_name").html();
-      var occurences = content.indexOf(userName);
-
-      var imgLink = $(this).find(".image_link").attr("href");
-      //alert(imgLink);
-      if (imgLink.toLowerCase().indexOf("instagram") == 0) {
-        imgLink = $(this).find(".comment_image img").attr("src");
-      }
-      content = content + userName + " - " + imgLink; //$(this).find(".comment_image img").attr("src") ;
-
-      if (occurences >= 0) {
-        content = content + " *duplicate user*";
-      }
-
-
-      content = content + "\n\n";
-      //alert(str);
-
-      if (index == totalElements - 1) {
-        //var newVal = $('#selected_gallery_text_area').val() + str; 
-        $('#selected_gallery_text_area').val(content);
-      }
-
-    });
-
-    $("#selected_gallery_info").text("selected : " + totalElements);
-    $("#selected_gallery_controls").text("show faves (" + totalElements + ")");
-  }
-
-
   function getImages(sub_name) {
 
     var refreshId = setInterval(function() { // this code is executed every 500 milliseconds:
 
       if (_currentTry == _maxTries) {
-        //alert(_tryIncrements + " pages loaded - " + _validResultsCount + " matching out of " + _resultsCount);
-
-        //alert(_maxTries + " : " + _currentTry);
-        clearInterval(refreshId); // breaks
+        clearInterval(refreshId);
         checkAndpdateAllInvalidImages("content", _maxImageWidth, _maxImageHeight);
         return false;
       }
-
 
       if (_runningInterface == false) {
 
         if ($("#content").height() > window.innerHeight) {
           $("#back_to_top").show();
         }
-
-
         var runSearch = false;
 
         if (_afterVar == "null") {
-          //alert("no 'after' value found ; old val = " + _oldAfterVar); 
-
           redditURL = "http://www.reddit.com/r/" + sub_name + "/comments.json?limit=" + _resultsLength + "&after=" + _oldAfterVar + "&count=" + _resultsLength + "&jsonp";
 
           $.getJSON(redditURL).then(function(data2) {
@@ -266,52 +77,32 @@ $(document).ready(function() {
             var tempAfterVal = getJSonStringifyWithoutQuotes(data2.data.after);
 
             if (tempAfterVal != "null") {
-              alert("redone afterval = " + _afterVar + " -> " + tempAfterVal);
               _afterVar = tempAfterVal;
               runSearch = true;
             } else {
-              alert("Cannot find other entries - " + _validResultsCount + " matching out of " + _resultsCount);
-              clearInterval(refreshId); // breaks
-
+              clearInterval(refreshId);
               checkAndpdateAllInvalidImages("content", _maxImageWidth, _maxImageHeight);
-
               return false;
             }
           });
 
         } else {
           runSearch = true;
-
         }
-        //console.log('runSearch :',runSearch);      
         if (runSearch) {
           _runningInterface = true;
-
           var redditURL = "http://www.reddit.com/r/" + sub_name + "/comments.json?limit=" + _resultsLength + "&jsonp";
-
           if (_afterVar.length > 0) {
             redditURL = "http://www.reddit.com/r/" + sub_name + "/comments.json?limit=" + _resultsLength + "&after=" + _afterVar + "&count=" + _resultsLength + "&jsonp";
           }
 
-          //alert(redditURL);
 
           try {
 
             $.getJSON(redditURL).then(function(data) {
-              //var compare = JSON.stringify(data.data.after) + " changed to ";
-
-              //_afterVar = JSON.stringify(data.data.after);
-              //_afterVar = _afterVar.substring(1,_afterVar.length-1);
 
               _oldAfterVar = _afterVar;
               _afterVar = getJSonStringifyWithoutQuotes(data.data.after);
-
-
-              //alert(compare + _afterVar  + " ; " + data.data.children.length);
-
-              //console.log('afterVar :',_afterVar);
-              //console.log('min UTC :',_minimumUTC);
-              //console.log('child count :',data.data.children.length);
 
               $.each(data.data.children, function(index, item) {
                 try {
@@ -319,11 +110,10 @@ $(document).ready(function() {
 
                   var createdUTC = JSON.stringify(item.data.created_utc);
 
-                  //console.log('createdUTC :',createdUTC);
 
                   if (createdUTC < _minimumUTC) {
 
-                    alert("search completed - " + _validResultsCount + " matching out of " + _resultsCount);
+                    //alert("search completed - " + _validResultsCount + " matching out of " + _resultsCount);
                     //alert("created UTC < minimimum - " + createdUTC + " : " + minimumUTC);
                     clearInterval(refreshId); // breaks
                     checkAndpdateAllInvalidImages("content", _maxImageWidth, _maxImageHeight);
@@ -332,56 +122,32 @@ $(document).ready(function() {
 
                   /**************************************************/
                   var distinguished = getJSonStringifyWithoutQuotes(item.data.distinguished);
-                  //var distinguished =  JSON.stringify(item.data.distinguished);
-                  //distinguished = distinguished.substring(1,distinguished.length-1);
 
                   var author = getJSonStringifyWithoutQuotes(item.data.author);
-                  //var author =  JSON.stringify(item.data.author);
-                  //author = author.substring(1,author.length-1);
+
 
                   var isSubmitter = JSON.stringify(item.data.is_submitter);
 
                   var bodyStr = getJSonStringifyWithoutQuotes(item.data.body);
-                  //var bodyStr = JSON.stringify(item.data.body);
-                  bodyStr = bodyStr.replace("\\n", " ");
-                  //bodyStr = bodyStr.substring(1,bodyStr.length-1);
 
-                  //console.log('index :',index);
-                  //console.log('isSubmitter :',isSubmitter);
-                  /*if(author.toUpperCase() == "VELVETPINCHES")
-                  {
-                        var url2 = getURLFromString(bodyStr);
-                        alert(url2);
-                  }   */
-                  /*
-                  if ( (bodyStr.toUpperCase().indexOf("HTTPS://") >= 0 || bodyStr.toUpperCase().indexOf("HTTP://") >= 0)   && 
-                       (author.toUpperCase() != "AUTOMODERATOR") && (author.toUpperCase() != "JCCHANG4") &&    
-                       (author.toUpperCase() != "[DELETED]") &&  
-                       (distinguished.toUpperCase() != "MODERATOR") &&    
-                       (isSubmitter == "false")
-                     )
-                  */
+                  bodyStr = bodyStr.replace("\\n", " ");
+
                   if ((bodyStr.toUpperCase().indexOf("HTTPS://") >= 0 || bodyStr.toUpperCase().indexOf("HTTP://") >= 0) &&
-                    (author.toUpperCase() != "AUTOMODERATOR") && (author.toUpperCase() != "JCCHANG4") &&
+                    (author.toUpperCase() != "AUTOMODERATOR") &&
                     (author.toUpperCase() != "[DELETED]") &&
                     (distinguished.toUpperCase() != "MODERATOR") &&
                     (isSubmitter == "false")
                   ) {
                     _validResultsCount = _validResultsCount + 1;
-
                     var url = getURLFromString(bodyStr);
 
-                    //alert("match = " + bodyStr + " ; " + url);
                     var commentLink = getJSonStringifyWithoutQuotes(item.data.permalink);
-                    //var commentLink = JSON.stringify(item.data.permalink);
-                    //commentLink = commentLink.substring(1,commentLink.length-1);
-
 
                     var dt = eval(createdUTC * 1000);
                     var createdTranslatedDate = new Date(dt);
 
-                    $("#content").append("<div class='comment_results' id='comment_results_" + _resultsCount + "'><div class='add_item_to_gallery' id='add_item_to_gallery_" + _resultsCount + "'>Add to favourites</div><div class='comment_info'><a href='https://www.reddit.com/user/" + author + "' target='_blank' class='user_link'><span class='comment_user_name'>u/" + author + "</span></a> [" + createdTranslatedDate.toLocaleString() + "] <br /><a href='https://www.reddit.com" + commentLink + "'  target='_blank' class='comment_link'>comment link</a> | <a href='" + url + "' target='_blank' class='image_link'>image link</a> | <span class='remove_loading' id='remove_loading_" + _resultsCount + "'>remove loading</span></div><div class='comment_image'><div class='loading_panel' id='loading_panel_" + _resultsCount + "'></div><img src='" + url + "' alt='" + url + "' id='comment_image_" + _resultsCount + "' width='0' height='0'></div></div></div>");
-                    //console.log('URL :',url);  
+                    $("#content").append("<div class='comment_results' id='comment_results_" + _resultsCount + "'><div class='commentinfo'><a href='https://www.reddit.com/user/" + author + "' target='_blank' class='commentusername'><span class='commentusername'>u/" + author + "</span></a> | <a href='https://www.reddit.com" + commentLink + "'  target='_blank' class='commentusername'>comment link</a> | <a href='" + url + "' target='_blank' class='commentusername'>image link</a> | <span class='remove_loading' id='remove_loading_" + _resultsCount + "'>remove loading</span></div><div class='comment_image'><div class='loading_panel' id='loading_panel_" + _resultsCount + "'></div><img src='" + url + "' alt='" + url + "' id='comment_image_" + _resultsCount + "' width='0' height='0'><a class='commentusername'>[" + createdTranslatedDate.toLocaleString() + "]</a></div></div></div>");
+
                     if (isStringValidImageUrl(url) == false) {
                       if (url.toUpperCase().indexOf("REDDIT.COM") >= 0) {
                         getRedditPageImage(url, 'comment_results_' + _resultsCount);
@@ -399,27 +165,20 @@ $(document).ready(function() {
                         getTwitterEmbed(url, 'comment_results_' + _resultsCount);
                       } else if (url.toUpperCase().indexOf("VIDBLE") >= 0) {
                         getVidbleImage(url, 'comment_results_' + _resultsCount);
-                      } else /*if (url.toUpperCase().indexOf("INSTAGRAM") >= 0)   */ {
+                      } else  {
                         $("#remove_loading_" + _resultsCount).remove();
                         getInstagramIFrame(url, 'comment_results_' + _resultsCount);
                       }
                     } else {
-                      var img = $("#comment_image_" + _resultsCount); //.attr("src");
-                      //alert("ig from index = " + img.attr("src"));
+                      var img = $("#comment_image_" + _resultsCount); 
+
                       getImageDimensions(img, _maxImageWidth, _maxImageHeight);
                     }
                   }
-                  /*else
-                  {
-                  $("#content").append("u/" + author + " [" + index + "]- [" + createdUTC  + "] <br />");                  
-                  }  */
-
-                  //console.log('runningInterface :',_runningInterface);
-
 
                   if (index == data.data.children.length - 1) {
                     _runningInterface = false;
-                    //alert("max hit");
+
                   }
 
                 } catch (err) {
@@ -570,7 +329,7 @@ function getImgurImage(this_url, results_id) {
     //urlHolder = "https://i.imgur.com/"
 
     if (urlHolder.toUpperCase().indexOf(".MP4") >= 0) {
-      var vidStr = "<video width='" + _maxImageWidth + "' height='" + _maxImageHeight + "' controls autoplay><source src='" + urlHolder + "'' type='video/mp4'</video>";
+      var vidStr = "<video width='" + _maxImageWidth + "' height='" + _maxImageHeight + "'><source src='" + urlHolder + "'' type='video/mp4'</video>";
 
       $("#" + results_id + " .comment_image").remove();
       $("#" + results_id).append(vidStr);
@@ -675,9 +434,6 @@ function getDeviantArtThumbnail(this_url, results_id) {
       success: function(jsondata) {
         //console.log("jsondata :",jsondata); 
         var thumbNail = getJSonStringifyWithoutQuotes(jsondata.thumbnail_url);
-        //var thumbNail = JSON.stringify(jsondata.thumbnail_url); 
-        //thumbNail = thumbNail.substring(1,thumbNail.length-1);
-        //alert("thumbNail :" + thumbNail);  
         $("#" + results_id + " img").attr("src", thumbNail);
 
         getImageDimensions($("#" + results_id + " img"), _maxImageWidth, _maxImageHeight);
@@ -809,10 +565,8 @@ function getURLFromString(string_to_extract) {
           url = url.substring(0, closingIndex);
         }
       }
-      //url = url.substring(httpStartIndex,  url.length - 1); 
     }
 
-    //url = url.substring(httpStartIndex,  url.length); 
 
     if (url.indexOf("\\") >= 0) {
       url = url.substring(0, url.indexOf("\\"));
@@ -869,49 +623,6 @@ function getImageDimensions(image_tag, max_width, max_height) {
     tmpImg.src = image_tag.attr("src");
     var tagID = image_tag.attr("id");
 
-
-    /*
-        $("#"+tagID).on('load',function(){
-          var newWidth = this.width;
-          var newHeight = this.height;
-          
-          if(newHeight > max_height)
-          {
-              var heightRatio =  max_height/newHeight;
-              newHeight = parseInt(newHeight*heightRatio, 10);
-              
-              newWidth = parseInt(newWidth*heightRatio, 10);
-          }
-          
-          if(newWidth > max_width)
-          {
-              var widthRatio =  max_width/newWidth;
-              newWidth = parseInt(newWidth*widthRatio, 10);
-              
-              newHeight = parseInt(newHeight*widthRatio, 10);
-              
-          }
-          //alert("height : " + tmpImg.height + " -> " + newHeight);
-          console.log(tmpImg.src + ' width:' + newWidth + " ; height: " + newHeight);
-
-          $("#"+tagID).attr('width', newWidth);
-          $("#"+tagID).attr('height',newHeight);         
-        
-    
-         try
-         {
-            $("#"+tagID).parent().find(".loading_panel").remove();
-            $("#"+tagID).parent().parent().find(".remove_loading").remove();
-         }
-         catch(err2)
-         {
-         }
-
-      }).each(function(){
-        if(this.complete) $(this).trigger("load");
-      });
-      */
-
   } catch (err) {
     alert("ERROR - " + err.message);
   }
@@ -952,7 +663,6 @@ function setAllImagesFromZeroToMax(container_id, max_width, max_height) {
 
     $("#" + container_id).find("img").each(function(index, item) {
       if ($(this).attr('width') == "0") {
-        //$(this).attr('src',"https://img.lovepik.com/free_png/32/49/27/85b58PIC2y5MVp0DtD065_PIC2018.png_300.png");
         $(this).attr('width', max_width);
         $(this).attr('height', max_height);
       }
