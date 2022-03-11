@@ -34,6 +34,8 @@ $(document).ready(function() {
     _currentDate.setHours(0,0,0,0);
     _minimumUTC = getUTCTime(_currentDate);
     $("#start_utc_time").html(_currentDate.toLocaleString());
+    _currentDate = new Date();
+    $("#utc_time").html(_currentDate.toLocaleString());
   });
 
   $("#search_button").click(function() {
