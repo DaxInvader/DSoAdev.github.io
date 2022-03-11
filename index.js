@@ -6,7 +6,7 @@ $(document).ready(function() {
   var _oldAfterVar = "";
 
   var _runningInterface = false;
-  var _resultsLength = 2000; /*amount of results to get from json*/
+  var _resultsLength = 1000; /*amount of results to get from json*/
 
   var _tryIncrements = 50;
   var _maxTries = 50;
@@ -16,8 +16,8 @@ $(document).ready(function() {
   var _validResultsCount = 0;
 
   var _minimumUTC;
-  var _maxImageWidth = 300;
-  var _maxImageHeight = 300;
+  var _maxImageWidth =400;
+  var _maxImageHeight = 400;
 
 
   $("#utc_time").html(_currentDate.toLocaleString());
