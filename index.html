@@ -1,50 +1,47 @@
-<html> 
-  <head> 
-    <title>Reddit Image Search</title>
-    
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script type="text/javascript" src="./index.js?version=3.14"></script>
-     <script type="text/javascript" src="./image_interfaces.js?version=3.14"></script>
-     
-     <link rel="stylesheet" type="text/css" href="./index.css?version=1.1" />
-   
-  </head> 
-  <body> 
-    <div id="top_panel">  
-        <div id="right_panel">
-        <div id="sub_selection_panel">
-            <label for="subs">Choose a sub:</label><br />
-            <select name="subs" id="subs">
-              <option value="RedditGetsDrawn">RedditGetsDrawn</option>
-            </select>
-        </div>
-        <div id="date_selection_panel">
-             <div id="top_panel_date">
-                <label for="days">Start from :</label><br />
-                <select name="days" id="days">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7" selected="selected">7</option>
-                </select>
-                <label for="days"> days ago</label>
-            </div>
-            <div id="search_dates">Current Date :  <span id="utc_time"></span><br />
-            Start Date :  <span id="start_utc_time"></span></div> 
-        </div>
-        <div id="search_button_panel">
-            <button id="search_button">Search for art</button>
-        </div>
-     </div>
-        
-        
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css" />
+
+  <head>
+    <title>Dax's Approved Reddit Image Search</title>
+    <img src="https://i.imgur.com/yiboztR.jpg" width="500" height="300" align="left">
+    <h1 align="left" class="title">Dax's super awesome RDG Image search!
+    </h1>
+    <h4 align="left" class='subtitle'>(With the stamp and everything too!)
+    </h4>
+    <div align="left">
+      <p class='normaltext'>
+        Search from:
+        <select name="days" id="days">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7" selected="selected">7</option>
+        </select>
+        days ago.
+      </p>
+      <p class='normaltext'>
+        Current Date: <span id="utc_time"></span><br>
+        Start Date : <span id="start_utc_time"></span>
+      </p>
+      <p class='normaltext'>
+        Choose a sub: 
+        <select name="subs" id="subs">
+          <option value="RedditGetsDrawn">RedditGetsDrawn</option>
+        </select>
+      </p>
     </div>
+    <button id="search_button" class="button">Search!</button>
+  </head>
+
+  <body>
     <!--hr /-->
-    <div id="back_to_top">Back to top</div>
-	<div id="content"> </div> 
-  </body> 
-   
-  </html>
+    <button id="back_to_top" class="backtotopbtn">Back to top</button>
+    <div id="content"> </div>
+  </body>
+
+</html
